@@ -1,0 +1,54 @@
+{
+  "persistence": {
+    "n": 499,
+    "mean_km": 52.1,
+    "median_km": 37.58,
+    "rmse_km": 73.77,
+    "min_km": 0.0,
+    "max_km": 334.24
+  },
+  "ridge": {
+    "n": 499,
+    "mean_km": 33.52,
+    "median_km": 23.52,
+    "rmse_km": 47.29,
+    "min_km": 1.05,
+    "max_km": 250.73
+  },
+  "gradient_boosting": {
+    "n": 499,
+    "mean_km": 27.32,
+    "median_km": 18.68,
+    "rmse_km": 37.49,
+    "min_km": 0.86,
+    "max_km": 196.42
+  },
+  "gru": {
+    "n": 499,
+    "mean_km": 31.43,
+    "median_km": 20.79,
+    "rmse_km": 45.48,
+    "min_km": 0.42,
+    "max_km": 277.51
+  },
+  "openberg_physics_ref": {
+    "iceberg": 20857,
+    "split": "train (reference only, not test)",
+    "case": "Surface-only (vertical_profile=False)",
+    "period": "2021-06-02 to 2021-06-09",
+    "error_km": 30.01,
+    "iip_lat": 59.405,
+    "iip_lon": -62.115,
+    "model_lat": 59.5212,
+    "model_lon": -62.5944,
+    "note": "Single-iceberg reference. Cannot generalise to population statistics."
+  },
+  "hybrid": {
+    "n": 499,
+    "mean_km": 27.78,
+    "median_km": 19.25,
+    "rmse_km": 39.0,
+    "min_km": 0.83,
+    "max_km": 215.25
+  }
+}

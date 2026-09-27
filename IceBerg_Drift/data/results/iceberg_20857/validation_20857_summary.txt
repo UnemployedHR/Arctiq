@@ -1,0 +1,30 @@
+
+==================================================
+VALIDATION SUMMARY - ICEBERG 20857
+==================================================
+Simulation Status: Success
+Simulation Period: 2021-06-02 16:41:00 to 2021-08-09 21:32:00
+Model Time Steps: 405
+IIP Observations: 21
+Successfully Matched: 2 (9.5%)
+
+Metrics (km):
+- Mean Error:   15.00
+- Median Error: 15.00
+- RMSE:         21.22
+- Max Error:    30.01
+- Min Error:    0.00
+
+Positions:
+Start Observed: lon=-62.41000, lat=59.42667
+Start Modeled:  lon=-62.41000, lat=59.42667
+
+End Observed:   lon=-56.23667, lat=55.39167
+End Modeled:    lon=-62.59435, lat=59.52121
+
+Output Locations:
+- data\results\iceberg_20857\historical_validation_20857.nc
+- data\results\iceberg_20857\historical_validation_20857.csv
+- data\results\iceberg_20857\validation_20857_comparison.csv
+- data\results\iceberg_20857\validation_20857_trajectory.png
+- data\results\iceberg_20857\validation_20857_summary.txt

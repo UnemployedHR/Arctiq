@@ -1,0 +1,50 @@
+{
+  "persistence_val": {
+    "n": 513,
+    "mean_km": 47.545,
+    "median_km": 29.708,
+    "rmse_km": 68.709,
+    "min_km": 0.0,
+    "max_km": 336.838
+  },
+  "persistence_test": {
+    "n": 499,
+    "mean_km": 52.104,
+    "median_km": 37.582,
+    "rmse_km": 73.774,
+    "min_km": 0.0,
+    "max_km": 334.242
+  },
+  "ridge_val": {
+    "n": 513,
+    "mean_km": 30.394,
+    "median_km": 20.996,
+    "rmse_km": 42.825,
+    "min_km": 0.634,
+    "max_km": 209.745
+  },
+  "ridge_test": {
+    "n": 499,
+    "mean_km": 33.516,
+    "median_km": 23.515,
+    "rmse_km": 47.29,
+    "min_km": 1.052,
+    "max_km": 250.726
+  },
+  "gbr_val": {
+    "n": 513,
+    "mean_km": 24.582,
+    "median_km": 17.386,
+    "rmse_km": 34.306,
+    "min_km": 0.659,
+    "max_km": 165.3
+  },
+  "gbr_test": {
+    "n": 499,
+    "mean_km": 27.32,
+    "median_km": 18.681,
+    "rmse_km": 37.485,
+    "min_km": 0.858,
+    "max_km": 196.421
+  }
+}

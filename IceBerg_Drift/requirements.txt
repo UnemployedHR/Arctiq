@@ -1,0 +1,13 @@
+numpy
+pandas
+scikit-learn
+xgboost
+torch
+torchvision
+torchaudio
+matplotlib
+opendrift
+xarray
+netCDF4
+pyarrow
+joblib

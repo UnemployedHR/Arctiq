@@ -1,0 +1,18 @@
+{
+  "gru_val": {
+    "n": 513,
+    "mean_km": 27.017,
+    "median_km": 18.238,
+    "rmse_km": 39.229,
+    "min_km": 0.217,
+    "max_km": 228.429
+  },
+  "gru_test": {
+    "n": 499,
+    "mean_km": 31.433,
+    "median_km": 20.795,
+    "rmse_km": 45.485,
+    "min_km": 0.415,
+    "max_km": 277.506
+  }
+}

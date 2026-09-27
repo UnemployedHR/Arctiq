@@ -1,0 +1,10 @@
+.env
+.env.*
+venv/
+.venv/
+env/
+iceberg_env/
+node_modules/
+__pycache__/
+*.pyc
+temp_*.nc

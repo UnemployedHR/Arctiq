@@ -1,0 +1,12 @@
+{
+    "random_seed": 42,
+    "split_ratio": "70-15-15",
+    "creation_timestamp": "2026-09-27T01:13:24.651818",
+    "total_icebergs": 1215,
+    "train_count": 851,
+    "validation_count": 183,
+    "test_count": 181,
+    "train_percentage": 70.04115226337449,
+    "validation_percentage": 15.06172839506173,
+    "test_percentage": 14.897119341563785
+}
