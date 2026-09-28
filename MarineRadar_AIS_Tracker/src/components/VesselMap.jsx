@@ -99,16 +99,19 @@ const MapLayerControl = memo(function MapLayerControl({ style, onStyle }) {
 });
 
 // ─── Main VesselMap ───────────────────────────────────────────────────────────
-export default function VesselMap({ vessels, selected, onSelect }) {
+export default function VesselMap({ vessels, selected, onSelect, onCoords }) {
   const containerRef = useRef(null);
   const mapRef = useRef(null);
   const layersReadyRef = useRef(false);
   const [mapStyle, setMapStyle] = useState('dark');
+  const [tooltip, setTooltip] = useState(null); // { x, y, vessel }
   // Keep latest props accessible inside stable map callbacks
   const vesselsRef = useRef(vessels);
   const onSelectRef = useRef(onSelect);
+  const onCoordsRef = useRef(onCoords);
   vesselsRef.current = vessels;
   onSelectRef.current = onSelect;
+  onCoordsRef.current = onCoords;
 
   // ── 1. Initialize map once ─────────────────────────────────────────────────
   useEffect(() => {
@@ -124,10 +127,17 @@ export default function VesselMap({ vessels, selected, onSelect }) {
     });
     mapRef.current = map;
 
+    // Add exactly one navigation control
     map.addControl(
       new MapLibreNavControl({ showCompass: false }),
       'bottom-right'
     );
+
+    // Ensure map resizes correctly when panels slide in/out
+    const ro = new ResizeObserver(() => {
+      if (mapRef.current) mapRef.current.resize();
+    });
+    ro.observe(containerRef.current);
 
     // Pre-load all known ship images before the style finishes loading
     function preloadImages() {
@@ -257,11 +267,25 @@ export default function VesselMap({ vessels, selected, onSelect }) {
         if (vessel) onSelectRef.current(vessel);
       });
 
-      map.on('mouseenter', LYR_VESSELS, () => {
+      map.on('mouseenter', LYR_VESSELS, (e) => {
         map.getCanvas().style.cursor = 'pointer';
+        if (!e.features?.length) return;
+        const props = e.features[0].properties;
+        const mmsi = String(props.mmsi);
+        const vessel = vesselsRef.current.find(v => String(v.mmsi) === mmsi);
+        if (vessel) {
+          const rect = containerRef.current.getBoundingClientRect();
+          const pt = e.point;
+          setTooltip({ x: pt.x, y: pt.y, vessel });
+        }
       });
       map.on('mouseleave', LYR_VESSELS, () => {
         map.getCanvas().style.cursor = '';
+        setTooltip(null);
+      });
+      map.on('mousemove', (e) => {
+        const cb = onCoordsRef.current;
+        if (cb) cb({ lat: e.lngLat.lat, lng: e.lngLat.lng });
       });
 
       layersReadyRef.current = true;
@@ -281,6 +305,7 @@ export default function VesselMap({ vessels, selected, onSelect }) {
 
     return () => {
       // Clean up on component unmount
+      ro.disconnect();
       map.remove();
       mapRef.current = null;
       layersReadyRef.current = false;
@@ -411,6 +436,38 @@ export default function VesselMap({ vessels, selected, onSelect }) {
     <div style={{ height: '100%', width: '100%', position: 'relative' }}>
       {/* MapLibre renders into this div */}
       <div ref={containerRef} style={{ height: '100%', width: '100%' }} />
+
+      {/* Hover tooltip */}
+      {tooltip && (
+        <div
+          className="vessel-tooltip"
+          style={{
+            left: tooltip.x + 14,
+            top: tooltip.y - 10,
+          }}
+        >
+          <div className="vt-name">{tooltip.vessel.name || `MMSI ${tooltip.vessel.mmsi}`}</div>
+          {tooltip.vessel.typeLabel && (
+            <div className="vt-type">{tooltip.vessel.typeLabel}</div>
+          )}
+          <div className="vt-row">
+            <span className="vt-lbl">MMSI</span>
+            <span className="vt-val">{tooltip.vessel.mmsi}</span>
+          </div>
+          {tooltip.vessel.sog != null && (
+            <div className="vt-row">
+              <span className="vt-lbl">Speed</span>
+              <span className="vt-val">{Number(tooltip.vessel.sog).toFixed(1)} kn</span>
+            </div>
+          )}
+          {tooltip.vessel.cog != null && (
+            <div className="vt-row">
+              <span className="vt-lbl">Course</span>
+              <span className="vt-val">{Math.round(tooltip.vessel.cog)}°</span>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Layer switcher */}
       <MapLayerControl style={mapStyle} onStyle={setMapStyle} />
